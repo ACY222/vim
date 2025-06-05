@@ -1,6 +1,6 @@
 ## Some mistakes
 
-- [ ] I cannot use <C-j>, <C-k> etc to modify the window size
+- [ ] I cannot use C-j, C-k etc to modify the window size
 
 ## Some requiments
 
