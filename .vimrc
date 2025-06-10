@@ -45,9 +45,9 @@ set matchtime=1
 set showcmd 		" display inputting commands
 set autoindent 		" copy indent from current line when starting a new line 
 
-" show indent line
-set list
-set listchars=tab:\ \ ,leadmultispace:▸···,multispace:\ \ 
+" show indent line, it looks annoying
+" set list
+" set listchars=tab:\ \ ,leadmultispace:▸···,multispace:\ \ 
 
 set tabstop=4       " the size of tab
 set expandtab		" replace tab with spaces
@@ -59,7 +59,7 @@ set textwidth=80    " the width of each line
 set wrap            " break lines automatically
 set linebreak       " break only when encountering with specific character
 set scrolloff=5
-match ErrorMsg '\%>80v.\+'	" highlight the characters above 80
+" match ErrorMsg '\%>80v.\+'	" highlight the characters above 80
 
 set undofile                " create undo file
 set undodir=~/.vim/.undo//
@@ -89,8 +89,10 @@ set foldlevelstart=0
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " search config
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set ignorecase 		" smart case-sensitive search
-set smartcase 		
+" ==# is the 'case-sensitive no matter what the user has set'
+" ==? is the 'case-insensitive no matter what the user has set'
+set ignorecase 		" Now, 'foo' == 'FOO' is true!. But ==# still works
+set smartcase 	    " ignore case when lowercase letter only 
 set incsearch 		" searching as you type
 set nohlsearch      " nohighlight after search
 
@@ -124,9 +126,9 @@ inoremap <esc> <nop>
 " Unbind some useless/annoying default key bindings.
 nnoremap Q <nop>
 " Use some key mappings to compile and run quickly
-nnoremap <leader>cpp :!g++ % -o %<<CR>:!./%<<CR>
-nnoremap <leader>c :!gcc % -o %<<CR>:!./%<<CR>
-nnoremap <leader>py :!python3 %<CR>
+autocmd FileType cpp nnoremap <C-i> :!g++ -std=c++20 % -o %<<CR>:!./%<<CR>
+autocmd FileType c nnoremap <C-i> :!gcc % -o %<<CR>:!./%<<CR>
+autocmd FileType python nnoremap <C-i> :!python3 %<CR>
 
 " Have j and k navigate visual lines rather than logical lines
 " Sometimes it will cause relative numbers inaccurate
@@ -139,11 +141,11 @@ nnoremap k gk
 " Some snippets
 " fix the misspelling automatically
 iabbrev inlcude include
-" abbrev for my name and stu_number
-iabbrev myname Ai Chang
-iabbrev mynum PB22111620
-iabbrev rt return
-iabbrev return NOPENOPENOPE
+" abbrev for my name and stu_number, they save quite little time
+" iabbrev myname Ai Chang
+" iabbrev mynum PB22111620
+" iabbrev rt return
+" iabbrev return NOPENOPENOPE
 
 " Convert the current word to uppercase in insert mode
 " Extremely useful when I'm writing out the name of a long constant like
@@ -165,16 +167,22 @@ nnoremap <S-j> <C-w>j
 nnoremap <S-h> <C-w>h
 nnoremap <S-l> <C-w>l
 
-" shift between buffers without using colons will make b very slow
-nnoremap nb :bn<CR>
-nnoremap pb :bp<CR>
+" shift between buffers without using colons 
+" 'bn', 'bp' will make b very slow
+" 'nb', 'pb' will make n, p very slow
+" '<leader>p' will make <leader>py very slow, but recently I won't use python
+" very often, and python instructions are very short, so it will be nice
+nnoremap <leader>n :bn<CR>
+nnoremap <leader>p :bp<CR>
 nnoremap <leader>b :bd 
 
-" save what you yank, even after you delete
+nnoremap <leader>for :e /mnt/d/Desktop/for_study/2025_1Spring/CS106L/notes/
+
+" save what you yank, even after you delete, actually, I often forget to use it
 nnoremap <leader><leader>p "0p  
 
 " edit .vimrc when editing other files
-nnoremap <leader>vimrc :e $MYVIMRC<CR>
+nnoremap <leader>vim :e $MYVIMRC<CR>
 nnoremap <leader>rc :vsp $MYVIMRC<CR>
 " source my .vimrc
 nnoremap <leader>sv :w <CR> :source $MYVIMRC<CR>
@@ -210,8 +218,6 @@ Plug 'frazrepo/vim-rainbow'     " rainbow parenthesis
 " iamcco/markdown-preview.nvim doesn't support vim in wsl terminal
 " trying JamshedVesuna/vim-markdown-preview, but failed
 " trying instant-markdown/vim-instant-markdown, but failed
-" Plug 'instant-markdown/vim-instant-markdown', 
-"	{'for': 'markdown', 'do': 'yarn install'}
 call plug#end()
 
 
@@ -260,8 +266,8 @@ let g:airline_extensions = ['tabline', 'coc', 'branch']
 
 " airline statusline by default
 " |A|B|     C       X|Y|Z|[...]
-" by default: x: filetype, y: fileencoding
 let g:airline_section_b = '%n'              " buffer number
+let g:airline_section_c = '%f'              " file name
 let g:airline_section_x = '%h'              " help buffer flag
 let g:airline_section_y = '%y'              " filetype
 let g:airline_section_z = '%p%% ≡ %l/%L %c' " percentage, row, Row, column
