@@ -188,7 +188,8 @@ nnoremap <leader>sv :w <CR> :source $MYVIMRC<CR>
 " install and clean plugins
 nnoremap <leader>in :PlugInstall<CR>
 nnoremap <leader>cl :PlugClean<CR>
-nnoremap <leader>git :!cp .vimrc /mnt/d/Desktop/for_study/vim/.vimrc<CR>
+nnoremap <leader>git1 :!cp .vimrc /mnt/d/Desktop/for_study/vim/.vimrc<CR>
+nnoremap <leader>git2 :!cp learn_vim.md /mnt/d/Desktop/for_study/vim/todo_list.md<CR>
 " }}}
 
 
