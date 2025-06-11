@@ -213,7 +213,11 @@ Plug 'tpope/vim-commentary'
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
 " enhance f/t
 Plug 'rhysd/clever-f.vim'
-Plug 'frazrepo/vim-rainbow'     " rainbow parenthesis
+" colorful parenthesis
+Plug 'frazrepo/vim-rainbow'
+" shows git diff in the column. it shows which lines have been added, deleted,
+" modified and so on
+Plug 'airblade/vim-gitgutter'
 " markdown preview
 " iamcco/markdown-preview.nvim doesn't support vim in wsl terminal
 " trying JamshedVesuna/vim-markdown-preview, but failed
@@ -303,13 +307,6 @@ xnoremap <leader>t :Tabularize /
 " it seems that I can do these with key-mapping
 let g:surround_no_insert_mappings=1
 " verb(cs, ds, ys) + scope + object(open parenthesis has one more whitespace)
-" some examples:
-" "test"      --- 'test'          --- cs"'
-" 'test'      --- <q>test</q>     --- cs'<q>
-" <q>test</q> --- "test"          --- cst"
-" test        --- 'test'          --- ysiw'
-" test1 test2 --- (test1 test2)   --- yss)
-" test1 test2 --- { test1 test2 } --- yss{
 " End vim-surround settings
 
 " coc.nvim settings
@@ -355,6 +352,12 @@ nnoremap <silent> <leader>a :<C-u>set operatorfunc=<SID>CocActionOpenFromSelecte
 let g:rainbow_active = 1
 " End vim-rainbow settings
 
+
+" vim-gitgutter settings
+" jump between hunks(hunk: a contiguous block of changes between two versions)
+nnoremap ]h <Plug>(GitGutterNextHunk)
+nnoremap [h <Plug>(GitGutterPrevHunk)
+" End vim-gitgutter settings
 " python highlight
 let g:python_highlight_all = 1
 
