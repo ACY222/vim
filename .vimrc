@@ -1,5 +1,4 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" base config
+" base config {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible 	" not vi compatible
 set shortmess+=sI 	" Disable the default Vim startup message
@@ -38,9 +37,10 @@ set updatetime=100
 set signcolumn=yes
 set showmatch
 set matchtime=1
+" }}}
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" edit config
+
+" edit config {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set showcmd 		" display inputting commands
 set autoindent 		" copy indent from current line when starting a new line 
@@ -77,17 +77,18 @@ augroup writeNewFile
     autocmd BufNewFile * :w
 augroup END
 
-" Vimscript file settings, now we can fold vim codes using 'za'{{{
+" fold vim codes using 'za', use 'zf' + motion or in visual mode 
+" to create folds on the object
 augroup fold_vimscript
     autocmd!
     autocmd FileType vim setlocal foldmethod=marker
 augroup END
+
+set foldlevelstart=0        " start with all folds closed
 " }}}
 
-set foldlevelstart=0
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" search config
+" search config {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ==# is the 'case-sensitive no matter what the user has set'
 " ==? is the 'case-insensitive no matter what the user has set'
@@ -116,9 +117,10 @@ set wildmode=longest,list
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set langmenu=zh_CN.UTF-8    " set language menu encode utf8
 set helplang=cn             " set helping language Chinese
+" }}}
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" binding config
+
+" binding config {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use jk to escape insert mode, disable <esc> to force myself to use new keys
 inoremap jk <esc>
@@ -178,9 +180,6 @@ nnoremap <leader>b :bd
 
 nnoremap <leader>for :e /mnt/d/Desktop/for_study/2025_1Spring/CS106L/notes/
 
-" save what you yank, even after you delete, actually, I often forget to use it
-nnoremap <leader><leader>p "0p  
-
 " edit .vimrc when editing other files
 nnoremap <leader>vim :e $MYVIMRC<CR>
 nnoremap <leader>rc :vsp $MYVIMRC<CR>
@@ -189,8 +188,11 @@ nnoremap <leader>sv :w <CR> :source $MYVIMRC<CR>
 " install and clean plugins
 nnoremap <leader>in :PlugInstall<CR>
 nnoremap <leader>cl :PlugClean<CR>
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" plugins list
+nnoremap <leader>git :!cp .vimrc /mnt/d/Desktop/for_study/vim/.vimrc<CR>
+" }}}
+
+
+" plugins config {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
 Plug 'majutsushi/tagbar'	    " F8, file construction, like vars, funcs, etc.
@@ -225,12 +227,12 @@ Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 
-" LeaderF settings
+" LeaderF settings {{{
 let g:Lf_ShortcutF = '<C-p>'
-" End LeaderF settings
+" }}}
 
 
-" tagbar settings
+" tagbar settings {{{
 " Press F8 to see the construction of the file
 noremap <F8> :TagbarToggle<CR>
 let g:tagbar_width = 22
@@ -238,10 +240,10 @@ let g:tagbar_ctags_bin  = 'ctags'
 let g:tagbar_autofocus  = 1
 let g:tagbar_left		= 1
 let g:tagbar_sort		= 0
-" End tagbar settings
+" }}}
 
 
-" Nerdtree Settings
+" Nerdtree Settings {{{
 " Press Ctrl-n to show or hide the nerd tree
 nnoremap <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeFileExtensionHighlightFullName = 1
@@ -251,24 +253,13 @@ let g:NERDTreeHighlightFoldersFullName = 1
 let g:NERDTreeDirArrowExpandable='▷'
 let g:NERDTreeDirArrowCollapsible='▼'
 let g:NERDTreeWinSize = 18
-" End Nerdtree Settings
+" }}}
 
 
-" " Clear status line when vimrc is reload
-" set statusline=
-" " %F: full path of current file, $Y: type of file in the buffer
-" set statusline+=\ %F\ %Y        " status line in the left side
-" set statusline+=%=  " Use a divider to separate the two sides
-" " %l: row number, %c: column number, %p%%: cursor percentage from the top
-" set statusline+=\ row:\ %l\ col:\ %c\ percent:\ %p%%
-" airline settings
+" airline, tokyonight settings {{{
 let g:airline_theme = 'tokyonight'
 let g:airline_powerline_fonts = 1
 let g:airline_extensions = ['tabline', 'coc', 'branch']
-" I'm not sure what's enhanced tabline for
-" let g:airline#extensions#tabline#enabled = 1
-
-" airline statusline by default
 " |A|B|     C       X|Y|Z|[...]
 let g:airline_section_b = '%n'              " buffer number
 let g:airline_section_c = '%f'              " file name
@@ -279,37 +270,37 @@ let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
-" tokyonight themes
 set termguicolors
 let g:tokyonight_style = 'night'    
 let g:tokyonight_transparent_background = 0
 let g:tokyonight_enable_italic = 0
 let g:tokyonight_disable_italic_comment = 0
 colorscheme tokyonight
-" End airline and vim-one settings
+" }}}
 
 
-" easymotion settings
+" easymotion settings {{{
 " based on word
 nnoremap <leader>w <Plug>(easymotion-bd-w)
 " Based on characters 
 nnoremap <leader>s <Plug>(easymotion-s2)
-" End easymotion settings
+" }}}
 
 
-" Tabular settings
+" Tabular settings {{{
 nnoremap <leader>t :Tabularize /
 xnoremap <leader>t :Tabularize /
-" End Tabular settings
+" }}}
 
 
-" vim-surround settings
+" vim-surround settings {{{
 " it seems that I can do these with key-mapping
 let g:surround_no_insert_mappings=1
 " verb(cs, ds, ys) + scope + object(open parenthesis has one more whitespace)
-" End vim-surround settings
+" }}}
 
-" coc.nvim settings
+
+" coc.nvim settings {{{
 " Use tab to accept selected completion item
 " Use <C-n> to select next completion, <C-p> to select previous completion
 inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#confirm() : "\<TAB>"
@@ -345,26 +336,32 @@ function! CocActionOpenFromSelected(type) abort
 endfunction
 xnoremap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' .visualmode()<CR>
 nnoremap <silent> <leader>a :<C-u>set operatorfunc=<SID>CocActionOpenFromSelected<CR>g@
-" End coc.nvim settings
+" }}}
 
 
-" vim-rainbow settings
+" vim-rainbow settings {{{
 let g:rainbow_active = 1
-" End vim-rainbow settings
+"}}}
 
 
-" vim-gitgutter settings
+" vim-gitgutter settings {{{
 " jump between hunks(hunk: a contiguous block of changes between two versions)
 nnoremap ]h <Plug>(GitGutterNextHunk)
 nnoremap [h <Plug>(GitGutterPrevHunk)
-" End vim-gitgutter settings
-" python highlight
-let g:python_highlight_all = 1
+" }}}
 
-" check if we can use backspace
+
+" python highlight{{{
+let g:python_highlight_all = 1
+"}}}
+
+" }}}
+
+
+" check if we can use backspace{{{
 function! CheckBackspace() abort
     let col = col('.') - 1            " cursor_pos--
     " if cursor at the beginning of the line or the char before it is whitespace
     return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-
+"}}}
